@@ -9,12 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - run: pip install pytest
+      - name: Install pytest
+        run: pip install pytest
 
-      - run: python -m pytest -v
+      - name: Run tests
+        run: python -m pytest -v
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5.8.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=ismaelqruiz
+            -Dsonar.projectKey=ismaelqruiz_labo12perceptronsimple
