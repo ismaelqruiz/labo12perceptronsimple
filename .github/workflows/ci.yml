@@ -1,3 +1,4 @@
+
 name: CI
 
 on:
@@ -26,7 +27,7 @@ jobs:
         run: python -m pytest -v
 
       - name: SonarCloud Scan
-uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
